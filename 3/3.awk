@@ -1,4 +1,7 @@
 BEGIN{
+
+
+
     count=length(ARGV)
     fileConfigurazione = ARGV[1]
 
@@ -62,7 +65,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
             if(fromString == ""){
                 fromString = $1
                 split($0, fromArray, "=")
-                print fromArray[2]
+             #   print fromArray[2]
 
 
 
@@ -70,34 +73,25 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
                 split(fromArray[2], fromArray2, "[. /]")
                #  print length(fromArray2)
                 
-                for (i = 1; i <= length(fromArray2); i++ ) {
-
                 #    print fromArray2[i]
 
-                    if (i == 1){
-
                         for (j = 1; j <= length(daysArray) ; j++ ){
-                            print daysArray[j]
-                            print fromArray2[1]
-
-                            print daysArray[1] == fromArray[1]
-                            if (dayArray[j] == fromArray2[i]) {
-
+                           # print daysArray[j]
+                            #print fromArray2[1]                   
+                            if (daysArray[j] == fromArray2[1]) {
+                              #  print daysArray[1] == fromArray2[1]
                                
                                 fromDay = fromArray2[1]
                                 fromMonth = fromArray2[2]
                                 fromDayCifra = fromArray2[3]
                                 fromHour = fromArray2[4]
+                                break;
                             }
-                            
                         }
+                          
+                
 
-                    }
-                    
-                    
-                }
 
-                print fromDay, fromMonth, fromDayCifra, fromHour
 
 
 
