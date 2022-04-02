@@ -65,29 +65,46 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
             if(fromString == ""){
                 fromString = $1
                 split($0, fromArray, "=")
-             #   print fromArray[2]
+                 #   print fromArray[2]
 
 
 
 
                 split(fromArray[2], fromArray2, "[. /]")
-               #  print length(fromArray2)
-                
-                #    print fromArray2[i]
+                   #  print length(fromArray2)
 
-                        for (j = 1; j <= length(daysArray) ; j++ ){
-                           # print daysArray[j]
-                            #print fromArray2[1]                   
-                            if (daysArray[j] == fromArray2[1]) {
-                              #  print daysArray[1] == fromArray2[1]
-                               
-                                fromDay = fromArray2[1]
-                                fromMonth = fromArray2[2]
-                                fromDayCifra = fromArray2[3]
-                                fromHour = fromArray2[4]
-                                break;
-                            }
-                        }
+                    #    print fromArray2[i]
+
+                for (j = 1; j <= length(daysArray) ; j++ ){
+                   # print daysArray[j]
+                    #print fromArray2[1]                   
+                    if (daysArray[j] == fromArray2[1]) {
+                      #  print daysArray[1] == fromArray2[1]
+
+                        fromDay = fromArray2[1]
+                        fromMonth = fromArray2[2]
+                        fromDayCifra = fromArray2[3]
+                        fromHour = fromArray2[4]
+                        break;
+                    }
+                }
+
+                for (j = 1; j <= length(monthsArray) ; j++ ){
+
+                    if (monthsArray[j] == fromArray2[1]) {
+
+                        fromMonth = fromArray2[1]
+                        fromDayCifra = fromArray2[2]
+                        fromHour = fromArray2[3]
+                        break;
+                    }                    
+
+                }
+                print "prima del ao"fromArray2[1]
+
+                if(fromArray2[1] ~ "[0-9]{4}/*"){
+                    print "aaaaaaooo"
+                }
                           
                 
 
