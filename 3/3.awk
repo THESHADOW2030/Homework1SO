@@ -350,21 +350,23 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
     
     
     
-    print rigaTesto 
-    if (("2022">= fromYear or fromYear=="") and ("2022" <= toYear or toYear == "")){
-        if((fromMonth == "" or monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) and (toMonth ==""  or monthsConfronto[rigaMonth]<= monthsConfronto[toMonth])){
-            if((fromHour="" or fromHour<= rigaHour) and (toHour == "" or toHour>= rigaHour)){
-              #test del contenuto
+   # print rigaTesto 
+        if (("2022">= fromYear or fromYear=="") and ("2022" <= toYear or toYear == "")){
+            if((fromMonth == "" or monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) and (toMonth ==""  or monthsConfronto[rigaMonth]<= monthsConfronto[toMonth])){
+                if((fromHour="" or fromHour<= rigaHour) and (toHour == "" or toHour>= rigaHour)){
+                #test del contenuto
 
-                var = "daddu"
-                print (rigaTesto ~ testoContenut)
+                    print rigaTesto
+                    if (rigaTesto ~ testoContenuto){
+
+                        print FILENAME":"rigaTesto 
+                    }       
+                }
             }
         }
-     }
-    
+    } if(tipo == "2"){
 
     }
-    #print testoContenuto
 }
 
 
