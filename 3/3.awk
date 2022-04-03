@@ -8,10 +8,23 @@ BEGIN{
     months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec"
     split(months, monthsArray, " ")
     
-    
+    cifraToLet["01"] = "Jan"
+    cifraToLet["02"] = "Feb"
+    cifraToLet["03"] = "Mar"
+    cifraToLet["04"] = "Apr"
+    cifraToLet["05"] = "May"
+    cifraToLet["06"] = "Jun"
+    cifraToLet["07"] = "Jul"
+    cifraToLet["08"] = "Aug"
+    cifraToLet["09"] = "Sep"
+    cifraToLet["10"] = "Oct"
+    cifraToLet["11"] = "Nov"
+    cifraToLet["12"] = "Dec"
+
+
     for (i = 1; i<= length(monthsArray) ; i++ ) {
 
-        monthsConfronto[monthsArray[i]] = 13 - i
+        monthsConfronto[monthsArray[i]] =  i
      #   print monthsConfronto["Feb"]
         
     }
@@ -21,12 +34,14 @@ BEGIN{
 
     for (i = 1; i<= length(daysArray) ; i++ ) {
 
-        daysConfronto[daysArray[i]] = 7 - i
+        daysConfronto[daysArray[i]] = i
         
     }
 
     #TODO PER FACILITARE I CONFRONTI CON GLI ARRAY SOPRA, IMPLEMENTARLI ANCHE ASSOCIATIVI. array[mon] < array[tue] e array[mon] = 1 e array[tue] = 2
 
+
+    testoContenuto = ""
 
     toDay=""
     toDayCifra=""
@@ -125,6 +140,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
                     fromYear = fromArray2[1]
                     fromMonthCifra=fromArray2[2]
                     fromDayCifra = fromArray2[3]
+                    fromMonth = cifraToLet[fromMonthCifra]
 
                #     print fromArray2[4]
                     
@@ -196,6 +212,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
                     toYear = toArray2[1]
                     toMonthCifra=toArray2[2]
                     toDayCifra = toArray2[3]
+                    toMonth = cifraToLet[toMonthCifra]
 
                    # print toArray2[4]
                     
@@ -234,7 +251,15 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
 
 
    
-
+    rigaDay=""
+    rigaDayCifra=""
+    rigaHour=""
+    rigaMonth=""
+    rigaMonthCifra=""
+    rigaMonthCifra=""
+    rigaMs=""
+    rigaYear=""
+    rigaTesto=""
   #  ciao = ""
    # b = "acsaf"
    # ciao = ciao "" b
@@ -260,7 +285,8 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
         rigaYear = arrayNuovo[1]
         rigaMonthCifra = arrayNuovo[2]
         rigaDayCifra = arrayNuovo[3]
-
+        rigaMonth = cifraToLet[rigaMonthCifra""]
+        
         
 
         if(riga ~ "[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]\."){ #non è sbagliata
@@ -294,7 +320,7 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
                 rigaMonth = rigaArray[1]
                 rigaDayCifra = rigaArray[2]
                 rigaHour = rigaArray[3]
-
+                rigaYear="2022"
                 tipo = "2"
             }
             
@@ -307,6 +333,7 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
                 rigaMonth = rigaArray[2]
                 rigaDayCifra = rigaArray[3]
                 rigaHour = rigaArray[4]
+                rigaYear="2022"
                 tipo= "1"
 
                 for (l = 5; l<=length(rigaArray) ;l++ ) {
@@ -346,26 +373,109 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
                 rigaTesto = rigaTesto "" testoTemp[p]
             }
         }
+    }else if(tipo == "2"){
+        check1 = 0  #ho incontrato abbastanza spazi bianchi
+        check2 = 0  #ho incontrato abbastanza caratteri totali
+        split($0, testoTemp,"")  
+        for(p = 1; p<=length(testoTemp); p++){
+
+            check1+=1
+          #  print check1
+
+            if (check1 >19){
+                    check2 = 1;
+            }
+            if (check2 == 1){
+                rigaTesto = rigaTesto "" testoTemp[p]
+            }
+        }
+
+    }else if(tipo == "3"){
+
+        check1 = 0  #ho incontrato abbastanza spazi bianchi
+        check2 = 0  #ho incontrato abbastanza caratteri totali
+        split($0, testoTemp,"")  
+        for(p = 1; p<=length(testoTemp); p++){
+
+            check1+=1
+          #  print check1
+
+            if (check1 >19 ){
+                    check2 = 1;
+            }
+            if (check2 == 1){
+                rigaTesto = rigaTesto "" testoTemp[p]
+            }
+        }
+
+        
+        
+    }else if(tipo == "4"){
+        split(rigaMs, tmp, "")
+        numeroCifreMS = length(tmp) + 1
+        check1 = 0  #ho incontrato abbastanza spazi bianchi
+        check2 = 0  #ho incontrato abbastanza caratteri totali
+        split($0, testoTemp,"")  
+        for(p = 1; p<=length(testoTemp); p++){
+
+            check1+=1
+          #  print check1
+
+            if (check1 >19 + numeroCifreMS){
+                    check2 = 1;
+            }
+            if (check2 == 1){
+                rigaTesto = rigaTesto "" testoTemp[p]
+            }
+        }
+
+        
+    }
     
-    
+  #  print ((FILENAME == "gtm7dy1786cmm2wksjqgn6yif8m1frxdt.5.zy.log") && ($0 ~ "YL4QXjtxWERZphwSJuLfDED.yw9K" ))
+
+    if ((FILENAME == "gtm7dy1786cmm2wksjqgn6yif8m1frxdt.5.zy.log") && ($0 ~ "YL4QXjtxWERZphwSJuLfDED.yw9K" )){
+           # print "ciao"
+    }
+
+    if ($0 ~ "GfqotDTyPwsUi 7BkBmIC56R0w2x36 7IOjcbd"){
+        #print "ciao"
+        #print rigaYear
+        #print rigaMonth
+        #print ((rigaYear>= fromYear || fromYear=="") && (rigaYear <= toYear || toYear == ""))
+        #print ((fromMonth == "" || monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]))
+        #print ((fromMonth == "" || monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) && (toMonth ==""  || monthsConfronto[rigaMonth]<= monthsConfronto[toMonth]))
+    }
     
     
    # print rigaTesto 
-        if (("2022">= fromYear or fromYear=="") and ("2022" <= toYear or toYear == "")){
-            if((fromMonth == "" or monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) and (toMonth ==""  or monthsConfronto[rigaMonth]<= monthsConfronto[toMonth])){
-                if((fromHour="" or fromHour<= rigaHour) and (toHour == "" or toHour>= rigaHour)){
-                #test del contenuto
 
-                    print rigaTesto
-                    if (rigaTesto ~ testoContenuto){
 
-                        print FILENAME":"rigaTesto 
-                    }       
-                }
+    if ((rigaYear>= fromYear || fromYear=="") && (rigaYear <= toYear || toYear == "")){  
+        
+        if( (rigaYear> fromYear || fromYear=="") && (rigaYear < toYear || toYear == "")){
+            if (rigaTesto ~ testoContenuto){
+                print FILENAME": "  $0 
+                next               
+            }    
+        }
+
+        if((fromMonth == "" || monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) && (toMonth ==""  || monthsConfronto[rigaMonth]<= monthsConfronto[toMonth])){
+            if ((fromMonth == "" || monthsConfronto[fromMonth]< monthsConfronto[rigaMonth]) && (toMonth ==""  || monthsConfronto[rigaMonth]< monthsConfronto[toMonth])){
+                if (rigaTesto ~ testoContenuto){
+                    print FILENAME": "  $0 
+                    next               
+            }  
+            }
+            if((fromHour=="" || fromHour<= rigaHour) && (toHour == "" || toHour>= rigaHour)){
+            #test del contenuto
+               # print rigaTesto
+                if (rigaTesto ~ testoContenuto){
+                    print FILENAME": "  $0 
+                    
+                }       
             }
         }
-    } if(tipo == "2"){
-
     }
 }
 
