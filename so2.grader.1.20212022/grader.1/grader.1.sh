@@ -9,7 +9,7 @@ res=`ls -1 so2.????.????.?.*.tgz 2> /dev/null | awk -F. '$2 == "2021" && $3 == "
 if [ $res -eq 0 ]
 then
     echo Manca il file con le soluzioni, impossibile proseguire
-    exit
+    #exit
 fi
 if [ $res -gt 1 ]
 then

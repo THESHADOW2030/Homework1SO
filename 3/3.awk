@@ -7,10 +7,23 @@ BEGIN{
 
     months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec"
     split(months, monthsArray, " ")
+    
+    
+    for (i = 1; i<= length(monthsArray) ; i++ ) {
+
+        monthsConfronto[monthsArray[i]] = 13 - i
+     #   print monthsConfronto["Feb"]
+        
+    }
 
     days = "Mon Tue Wed Thu Fri Sat Sun"
     split(days, daysArray, " ")
 
+    for (i = 1; i<= length(daysArray) ; i++ ) {
+
+        daysConfronto[daysArray[i]] = 7 - i
+        
+    }
 
     #TODO PER FACILITARE I CONFRONTI CON GLI ARRAY SOPRA, IMPLEMENTARLI ANCHE ASSOCIATIVI. array[mon] < array[tue] e array[mon] = 1 e array[tue] = 2
 
@@ -209,17 +222,34 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
             if(textString==""){
                 textString = $1
                 split($1, textArray, "=")
-        #        print textArray[2]
+                testoContenuto = textArray[2]
+                
             }
         }
 }
 
 FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
 
+
+
+
+   
+
+  #  ciao = ""
+   # b = "acsaf"
+   # ciao = ciao "" b
+
+    #print ciao
+
+   # print  ("22" == "21")
     ao = "0";
     riga = $0
 
     rigaYear = "2022"
+    rigaTesto = ""
+
+  #  print ("12:32:23" > "21:49:09")
+
 
     if(riga ~ "[0-9][0-9][0-9][0-9]/"){
       #  print riga         IDEA: splitto per / e lavoro su un ulteriore splitting dentro un if. In questo modo non mi si sfasano gli indici di 1
@@ -240,11 +270,14 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
             #print arrayNuovo[4]
             rigaHour = temp[1]
             rigaMs = temp[2]
+            tipo = "4"
         #    print temp[1] " " temp[2]
+
         }else{
 
            
            rigaHour = arrayNuovo[4]
+           tipo = "3"
        #    print rigaHour
         }
 
@@ -261,6 +294,8 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
                 rigaMonth = rigaArray[1]
                 rigaDayCifra = rigaArray[2]
                 rigaHour = rigaArray[3]
+
+                tipo = "2"
             }
             
         }
@@ -272,6 +307,13 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
                 rigaMonth = rigaArray[2]
                 rigaDayCifra = rigaArray[3]
                 rigaHour = rigaArray[4]
+                tipo= "1"
+
+                for (l = 5; l<=length(rigaArray) ;l++ ) {
+
+                    rigaTesto = rigaTesto "" rigaArray[l]
+                    
+                }
 
 
                # print "" rigaDay, rigaMonth, rigaDayCifra, rigaHour
@@ -284,7 +326,45 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
   #  print "" rigaMonth, rigaDayCifra, rigaHour
 
 
+                          #1..n 
+    #uso un diz[nomeFile][riga] = valore
+    rigaTesto = ""
+ #   print rigaTesto
+    if (tipo == "1"){
+        check1 = 0  #ho incontrato abbastanza spazi bianchi
+        check2 = 0  #ho incontrato abbastanza caratteri totali
+        split($0, testoTemp,"")  
+        for(p = 1; p<=length(testoTemp); p++){
 
+            check1+=1
+          #  print check1
+
+            if (check1 >19){
+                    check2 = 1;
+            }
+            if (check2 == 1){
+                rigaTesto = rigaTesto "" testoTemp[p]
+            }
+        }
+    
+    
+    
+    
+    print rigaTesto 
+    if (("2022">= fromYear or fromYear=="") and ("2022" <= toYear or toYear == "")){
+        if((fromMonth == "" or monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) and (toMonth ==""  or monthsConfronto[rigaMonth]<= monthsConfronto[toMonth])){
+            if((fromHour="" or fromHour<= rigaHour) and (toHour == "" or toHour>= rigaHour)){
+              #test del contenuto
+
+                var = "daddu"
+                print (rigaTesto ~ testoContenut)
+            }
+        }
+     }
+    
+
+    }
+    #print testoContenuto
 }
 
 
