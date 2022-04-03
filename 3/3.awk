@@ -140,19 +140,71 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
 
 
 
+              toString = $0
+                split($0, toArray, "=")
+            #    print "to array ha valore "toArray[2]
 
 
 
 
+                split(toArray[2], toArray2, "[ /]")
+              #      print length(toArray2)
+
+                for (k=1; k<= length(toArray2) ; k++ ) {
+                #    print toArray2[k]
+                    
+                }
+
+                for (j = 1; j <= length(daysArray) ; j++ ){ #caso in cui inizia col giorno
+                   # print daysArray[j]
+                    #print toArray2[1]                   
+                    if (daysArray[j] == toArray2[1]) {
+                      #  print daysArray[1] == toArray2[1]
+
+                        toDay = toArray2[1]
+                        toMonth = toArray2[2]
+                        toDayCifra = toArray2[3]
+                        toHour = toArray2[4]
+                        break;
+                    }
+                }
+
+                for (j = 1; j <= length(monthsArray) ; j++ ){   #caso in cui inizia con il mese
+
+                    if (monthsArray[j] == toArray2[1]) {
+
+                        toMonth = toArray2[1]
+                        toDayCifra = toArray2[2]
+                        toHour = toArray2[3]
+                        break;
+                    }                    
+
+                }
+
+                if(toArray2[1]"" ~ "[0-9][0-9][0-9][0-9]"){   #caso che inizia con l'anno
+                    toYear = toArray2[1]
+                    toMonthCifra=toArray2[2]
+                    toDayCifra = toArray2[3]
+
+                    print toArray2[4]
+                    
+                    if(toArray2[4]""  ~ "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]."){ #caso in cui sono presenti i ms
+                        split(toArray2[4], arrayOra, ".")
+                      #  print "sto nel if" arrayOra[1] " " arrayOra[2]
+                        toHour = arrayOra[1]
+                        toMs = arrayOra[2]
+
+                    }else{              #caso senza ms
+                       # print "sto nel else"
+                        split(toArray2[4], arrayOra, ".")
+                        toHour = arrayOra[1]
+                    }
+                    
+                }
 
 
-
-
-
-
-
-                
-              
+             #   print "I valori nel TO sono", toYear, toMonthCifra, toDayCifra, toHour, toMs   
+    
                 
             }
             
@@ -165,9 +217,4 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
                 print textArray[2]
             }
         }
-    
-
-
-
-
 }
