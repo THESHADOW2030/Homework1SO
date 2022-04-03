@@ -12,12 +12,13 @@ BEGIN{
     split(days, daysArray, " ")
 
 
-
+    #TODO PER FACILITARE I CONFRONTI CON GLI ARRAY SOPRA, IMPLEMENTARLI ANCHE ASSOCIATIVI. array[mon] < array[tue] e array[mon] = 1 e array[tue] = 2
 
 
     toDay=""
     toDayCifra=""
     toMonth=""
+    toMonthCifra=""
     toYear="2022"
     toHour=""
     toMs=""
@@ -26,6 +27,7 @@ BEGIN{
     fromDay=""
     fromDayCifra=""
     fromMonth=""
+    fromMonthCifra=""
     fromYear="2022"
     fromMs=""
     fromHour=""
@@ -63,19 +65,22 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
         if($1 ~ "from=*"){
             print "Sto esenguendo il from", $1
             if(fromString == ""){
-                fromString = $1
+                fromString = $0
                 split($0, fromArray, "=")
-                 #   print fromArray[2]
+            #    print "from array ha valore "fromArray[2]
 
 
 
 
-                split(fromArray[2], fromArray2, "[. /]")
-                   #  print length(fromArray2)
+                split(fromArray[2], fromArray2, "[ /]")
+              #      print length(fromArray2)
 
-                    #    print fromArray2[i]
+                for (k=1; k<= length(fromArray2) ; k++ ) {
+                #    print fromArray2[k]
+                    
+                }
 
-                for (j = 1; j <= length(daysArray) ; j++ ){
+                for (j = 1; j <= length(daysArray) ; j++ ){ #caso in cui inizia col giorno
                    # print daysArray[j]
                     #print fromArray2[1]                   
                     if (daysArray[j] == fromArray2[1]) {
@@ -89,7 +94,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
                     }
                 }
 
-                for (j = 1; j <= length(monthsArray) ; j++ ){
+                for (j = 1; j <= length(monthsArray) ; j++ ){   #caso in cui inizia con il mese
 
                     if (monthsArray[j] == fromArray2[1]) {
 
@@ -100,27 +105,29 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
                     }                    
 
                 }
-                print "prima del ao"fromArray2[1]
 
-                if(fromArray2[1] ~ "[0-9]{4}/*"){
-                    print "aaaaaaooo"
+                if(fromArray2[1]"" ~ "[0-9][0-9][0-9][0-9]"){   #caso che inizia con l'anno
+                    fromYear = fromArray2[1]
+                    fromMonthCifra=fromArray2[2]
+                    fromDayCifra = fromArray2[3]
+
+                    print fromArray2[4]
+                    
+                    if(fromArray2[4]""  ~ "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]."){ #caso in cui sono presenti i ms
+                        split(fromArray2[4], arrayOra, ".")
+                      #  print "sto nel if" arrayOra[1] " " arrayOra[2]
+                        fromHour = arrayOra[1]
+                        fromMs = arrayOra[2]
+
+                    }else{              #caso senza ms
+                       # print "sto nel else"
+                        split(fromArray2[4], arrayOra, ".")
+                        fromHour = arrayOra[1]
+                    }
+                    
                 }
                           
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
+                  
             }
             
             
@@ -128,9 +135,24 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
         } else if($1 ~ "to=*"){
             print "sto eseguendo il to", $1
             if (toString == "") {
-                toString = $1
-                split($1, toArray, "=")
-                print toArray[2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              
                 
             }
             
