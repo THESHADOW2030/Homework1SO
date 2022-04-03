@@ -1,0 +1,3 @@
+Non e' possibile dare contemporaneamente -l e -h
+Uso: ../1.sh [-h] [-l] [-e string] [-r regex] [-o file] [dirs]
+12

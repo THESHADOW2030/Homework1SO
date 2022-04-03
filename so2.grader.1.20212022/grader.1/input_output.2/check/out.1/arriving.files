@@ -1,0 +1,5 @@
+-rw-rw-r-- 1 1476 commands.txt
+-rw-rw-r-- 1 1664 main.sh
+.:
+lrwxrwxrwx 1 11 appoggio -> ../appoggio
+lrwxrwxrwx 1 4 2 -> ../2

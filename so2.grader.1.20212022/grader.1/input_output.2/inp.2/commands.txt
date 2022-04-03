@@ -1,0 +1,5 @@
+./2 10 6 6 10 11062 1 2 5 41 76 92 99 20 60|(1,../out.2/res.1.1.txt) (2,../out.2/res.1.2.txt) (5,../out.2/res.1.5.txt) (41,../out.2/res.1.41.txt) (76,../out.2/res.1.76.txt) (92,../out.2/res.1.92.txt) (99,../out.2/res.1.99.txt) (20,../out.2/res.1.20.txt) (60,../out.2/res.1.60.txt) 
+./2 10 6 6 10 13217 1 2 22 75 93 39 74 55|(1,../out.2/res.2.1.txt) (2,../out.2/res.2.2.txt) (22,../out.2/res.2.22.txt) (75,../out.2/res.2.75.txt) (93,../out.2/res.2.93.txt) (39,../out.2/res.2.39.txt) (74,../out.2/res.2.74.txt) (55,../out.2/res.2.55.txt) 
+./2 10 6 6 10 24207 1 2 41 91 72 58|(1,../out.2/res.3.1.txt) (2,../out.2/res.3.2.txt) (41,../out.2/res.3.41.txt) (91,../out.2/res.3.91.txt) (72,../out.2/res.3.72.txt) (58,../out.2/res.3.58.txt) 
+./2 10 6 6 10 2453 1 2 86 8 17|(1,../out.2/res.4.1.txt) (2,../out.2/res.4.2.txt) (86,../out.2/res.4.86.txt) (8,../out.2/res.4.8.txt) (17,../out.2/res.4.17.txt) 
+./2 10 6 6 10 17784 1 2 22 95 58 61 22 78|(1,../out.2/res.5.1.txt) (2,../out.2/res.5.2.txt) (22,../out.2/res.5.22.txt) (95,../out.2/res.5.95.txt) (58,../out.2/res.5.58.txt) (61,../out.2/res.5.61.txt) (22,../out.2/res.5.22.txt) (78,../out.2/res.5.78.txt) 

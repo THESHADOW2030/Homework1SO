@@ -1,0 +1,5 @@
+Eseguito con argomenti conf.2.txt gtm7dy1786cmm2wksjqgn6yif8m1frxdt.5.zy.log x1m7ycnxrd3rv463a4konyf.log .mchs3b80n.log v2raw00jiwmxk0zgb0n86f329t9j2jn26oh6dms6ko5xb6.ea.log 9y39di8fa9yst7ykx1xt7s3zphnjfctc9mnlmolq.log 9vvz5lcb3q9.log lz59rzf5x8zdd46tdread.log iwqbto7u76byqbz4qopl8ywv2.6h3loatvksnvcy44q2w.log gdpuidtk3n36o0vsvogfaug8n3hklsv.log
+gtm7dy1786cmm2wksjqgn6yif8m1frxdt.5.zy.log: Sun Dec 04 07:12:12    SF9a2lr0QYdE0eDXVJKrrd0eu1
+.mchs3b80n.log: Thu Feb 12 12:10:03 wztjeigbw8yZOd1exOh3dsc 77jZVxBfL SYMmespFK3kRbuG6GTJ1ymx1vlhvLSyWlhP4lusSZbU808FqI7Gs73Tr0QdOE.zrqE
+v2raw00jiwmxk0zgb0n86f329t9j2jn26oh6dms6ko5xb6.ea.log: 2015/11/20 12:49:03.452610  YvzU9.IxqOr0Qu6WJs5957eDzsnR4NGVS8Zs9xwS
+9y39di8fa9yst7ykx1xt7s3zphnjfctc9mnlmolq.log: Mon Mar 02 09:05:33 H.LNHsjhlr0QpGl.Qd1H7rFWZ2QQS3mHTsByWl2oRLIYgUuAcewtCtQYAes8y5c
