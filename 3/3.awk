@@ -22,6 +22,21 @@ BEGIN{
     cifraToLet["12"] = "Dec"
 
 
+
+
+
+
+
+
+
+
+
+
+
+    checkTo = 1;
+    checkFrom = 1;
+    checkText = 1;
+
     for (i = 1; i<= length(monthsArray) ; i++ ) {
 
         monthsConfronto[monthsArray[i]] =  i
@@ -37,6 +52,46 @@ BEGIN{
         daysConfronto[daysArray[i]] = i
         
     }
+
+    daysConfronto["01"] = 1
+    daysConfronto["02"] = 2
+    daysConfronto["03"] = 3
+    daysConfronto["04"] = 4
+    daysConfronto["05"] = 5
+    daysConfronto["06"] = 6
+    daysConfronto["07"] = 7
+    daysConfronto["08"] = 8
+    daysConfronto["09"] = 9
+    daysConfronto["10"] = 10
+    daysConfronto["11"] = 11
+    daysConfronto["12"] = 12
+    daysConfronto["13"] = 13
+    daysConfronto["14"] = 14
+    daysConfronto["15"] = 15
+    daysConfronto["16"] = 16
+    daysConfronto["17"] = 17
+    daysConfronto["18"] = 18
+    daysConfronto["19"] = 19
+    daysConfronto["20"] = 20
+    daysConfronto["21"] = 21
+    daysConfronto["22"] = 22
+    daysConfronto["23"] = 23
+    daysConfronto["24"] = 24
+    daysConfronto["25"] = 25
+    daysConfronto["26"] = 26
+    daysConfronto["27"] = 27
+    daysConfronto["28"] = 28
+    daysConfronto["29"] = 29
+    daysConfronto["30"] = 30
+    daysConfronto["31"] = 31
+    
+    
+    
+
+    
+
+
+    
 
     #TODO PER FACILITARE I CONFRONTI CON GLI ARRAY SOPRA, IMPLEMENTARLI ANCHE ASSOCIATIVI. array[mon] < array[tue] e array[mon] = 1 e array[tue] = 2
 
@@ -94,6 +149,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
 
         if($1 ~ "from=*"){
        #     print "Sto esenguendo il from", $1
+            checkFrom = 0;
             if(fromString == ""){
                 fromString = $0
                 split($0, fromArray, "=")
@@ -120,6 +176,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
                         fromMonth = fromArray2[2]
                         fromDayCifra = fromArray2[3]
                         fromHour = fromArray2[4]
+                        fromDay = fromDayCifra
                         break;
                     }
                 }
@@ -144,7 +201,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
 
                #     print fromArray2[4]
                     
-                    if(fromArray2[4]""  ~ "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\."){ #caso in cui sono presenti i ms
+                    if(fromArray2[4]""  ~ "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"){ #caso in cui sono presenti i ms
                         split(fromArray2[4], arrayOra, ".")
                  #       print "sto nel if" arrayOra[1] " " arrayOra[2]
                         fromHour = arrayOra[1]
@@ -164,6 +221,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
             
 
         } else if($1 ~ "to=*"){
+            checkTo = 0;
        #     print "sto eseguendo il to", $1
             if (toString == "") {
 
@@ -216,7 +274,7 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
 
                    # print toArray2[4]
                     
-                    if(toArray2[4]""  ~ "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\."){ #caso in cui sono presenti i ms
+                    if(toArray2[4]""  ~ "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"){ #caso in cui sono presenti i ms
                         split(toArray2[4], arrayOra, ".")
                      #   print "sto nel if " arrayOra[1] " " arrayOra[2]
                         toHour = arrayOra[1]
@@ -235,13 +293,26 @@ FILENAME == ARGV[1] {   #parso lo script di configurazione
             
 
         } else if($1 ~ "text=*"){
-     #       print "sto eseguendo il text", $1
+            checkText = 0;
+          #  print "sto eseguendo il text", $0
             if(textString==""){
-                textString = $1
-                split($1, textArray, "=")
+                textString = $0
+                split($0, textArray, "=")
                 testoContenuto = textArray[2]
+             #   print  testoContenuto
+            #    gsub(" ","", testoContenuto )
+             #   print testoContenuto
                 
             }
+        }
+
+
+
+        if (fromDayCifra != "" ){
+            fromDay = fromDayCifra
+        }
+        if (toDayCifra != "" ){
+            toDay = toDayCifra
         }
 }
 
@@ -258,7 +329,7 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
     rigaMonthCifra=""
     rigaMonthCifra=""
     rigaMs=""
-    rigaYear=""
+    rigaYear="2022"
     rigaTesto=""
   #  ciao = ""
    # b = "acsaf"
@@ -272,6 +343,8 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
 
     rigaYear = "2022"
     rigaTesto = ""
+
+
 
   #  print ("12:32:23" > "21:49:09")
 
@@ -289,7 +362,7 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
         
         
 
-        if(riga ~ "[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]\."){ #non è sbagliata
+        if(riga ~ "[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]"){ #non è sbagliata
           #  print riga
 
             split(arrayNuovo[4], temp, ".")
@@ -352,12 +425,17 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
     }
   #  print "" rigaMonth, rigaDayCifra, rigaHour
 
+  if(rigaDayCifra != ""){
+      rigaDay = rigaDayCifra
+  }
 
+    check2022 = 0;
                           #1..n 
     #uso un diz[nomeFile][riga] = valore
     rigaTesto = ""
  #   print rigaTesto
     if (tipo == "1"){
+        check2022 = 1;
         check1 = 0  #ho incontrato abbastanza spazi bianchi
         check2 = 0  #ho incontrato abbastanza caratteri totali
         split($0, testoTemp,"")  
@@ -374,6 +452,7 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
             }
         }
     }else if(tipo == "2"){
+        check2022 = 1;
         check1 = 0  #ho incontrato abbastanza spazi bianchi
         check2 = 0  #ho incontrato abbastanza caratteri totali
         split($0, testoTemp,"")  
@@ -438,45 +517,353 @@ FILENAME != ARGV[1] {   #per ogni file, verrà eseguito per tutte le righe.
            # print "ciao"
     }
 
-    if ($0 ~ "GfqotDTyPwsUi 7BkBmIC56R0w2x36 7IOjcbd"){
-        #print "ciao"
-        #print rigaYear
-        #print rigaMonth
-        #print ((rigaYear>= fromYear || fromYear=="") && (rigaYear <= toYear || toYear == ""))
-        #print ((fromMonth == "" || monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]))
-        #print ((fromMonth == "" || monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) && (toMonth ==""  || monthsConfronto[rigaMonth]<= monthsConfronto[toMonth]))
-    }
-    
-    
-   # print rigaTesto 
+    rigaTesto =  " "rigaTesto
+    test = "fgyoxEuyzIsWD"
 
+    if ($0 ~ test){
+    #    print "ciao"
+     
 
-    if ((rigaYear>= fromYear || fromYear=="") && (rigaYear <= toYear || toYear == "")){  
+     #print rigaTesto ~ testoContenuto
+     
+  
+     }
         
-        if( (rigaYear> fromYear || fromYear=="") && (rigaYear < toYear || toYear == "")){
-            if (rigaTesto ~ testoContenuto){
-                print FILENAME": "  $0 
+
+    
+    
+
+
+
+    if (toYear <= fromYear &&((!checkTo == 1) && (!checkFrom == 1))){
+
+        if (toYear < fromYear){
+            next
+        }else{  #fromYear == toYear
+        #    
+        #    print monthsConfronto[fromMonth]
+            if(monthsConfronto[toMonth] <= monthsConfronto[fromMonth]){
+            #    print "ciao"
+                if(monthsConfronto[toMonth] == monthsConfronto[fromMonth]){
+
+                    if(daysConfronto[toDay] <= daysConfronto[fromDay]){
+
+                        if(daysConfronto[toDay] == daysConfronto[fromDay]){
+
+                            if (toHour < fromHour){
+                                next
+                            }
+                            else{
+                             #   print "Non funziona"
+                            }
+                        }
+                        else{
+                            
+                            next
+                        }
+
+                    }
+                
+                }else {    #(monthsConfronto[toMonth] < monthsConfronto[fromYear])
+                    next
+                }
+
+            }
+
+        }
+    }
+
+
+
+    if (checkFrom && checkTo){
+        if (checkText){
+            print FILENAME": "  $0
+            next
+
+        }
+        else{
+            if (rigaTesto ~ testoContenuto || checkText){
+               
+               #if ($0 ~ "KPYswmL1On5UjisrxA.IGGRLfrQIprI3NbsFYeJmm4"){print "ciao"}
+              print FILENAME": "  $0 
                 next               
-            }    
+            }  
+        }
+    }
+
+
+
+
+
+
+
+
+    if (((rigaYear>= fromYear || checkFrom) || (checkFrom && check2022))  && ((rigaYear <= toYear || checkTo)|| (checkTo && check2022 == 1))){  
+
+
+        #controllo se il mese è dopo. Se è dopo allora controllo se l'anno non sia successivo
+ 
+
+        if(((rigaYear> fromYear || checkFrom) || (checkFrom && check2022 == 1)) && ((rigaYear < toYear || checkTo) || (checkTo && check2022 == 1))){
+
+              
+  
+            
+            
+            if (rigaTesto ~ testoContenuto || checkText){
+               
+               #if ($0 ~ "KPYswmL1On5UjisrxA.IGGRLfrQIprI3NbsFYeJmm4"){print "ciao"}
+              print FILENAME": "  $0 
+                next               
+            }     
         }
 
-        if((fromMonth == "" || monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) && (toMonth ==""  || monthsConfronto[rigaMonth]<= monthsConfronto[toMonth])){
-            if ((fromMonth == "" || monthsConfronto[fromMonth]< monthsConfronto[rigaMonth]) && (toMonth ==""  || monthsConfronto[rigaMonth]< monthsConfronto[toMonth])){
-                if (rigaTesto ~ testoContenuto){
-                    print FILENAME": "  $0 
-                    next               
-            }  
+
+
+
+
+
+
+
+
+
+
+        if(rigaYear == fromYear){   #caso in cui l'anno di partenza sia uguale. Controllo se l'il mese è lo stesso. Se è lo stesso guardo la data e guardo il to
+
+           
+           
+            if(rigaYear == fromYear ){   #caso in cui l'anno di partenza sia uguale. Controllo se l'il mese è lo stesso. Se è lo stesso guardo la data e guardo il to
+                if (monthsConfronto[fromMonth] > monthsConfronto[rigaMonth] ){
+                    next
+                }
+                 
+                if(monthsConfronto[fromMonth] < monthsConfronto[rigaMonth] && rigaYear < toYear){
+                        if (rigaTesto ~ testoContenuto || checkText){
+                                 print FILENAME": "  $0 
+                               next        
+                            }  
+                }
+     
+                if(monthsConfronto[rigaMonth] == monthsConfronto[fromMonth]){
+
+
+                        if (daysConfronto[fromDay] > daysConfronto[rigaDay]){
+                            next
+                        }
+                        if(daysConfronto[fromDay] < daysConfronto[rigaDay]){
+                            if (rigaTesto ~ testoContenuto || checkText){
+                                 print FILENAME": "  $0 
+                               next        
+                            }  
+                        }
+
+                        if(daysConfronto[fromDay] == daysConfronto[rigaDay] && fromHour < rigaHour){
+
+                            if (rigaTesto ~ testoContenuto || checkText){
+                                print FILENAME": "  $0 
+                                next        
+                            }  
+                            
+
+                        }
+
+                }    #NUOVO
+
+                if((!checkFrom) && (!checkTo)){
+
+                    if (fromYear == toYear){
+                        if (monthsConfronto[rigaMonth] == monthsConfronto[toMonth] && monthsConfronto[rigaMonth]> monthsConfronto[fromMonth]){
+                            
+                            if(daysConfronto[rigaDay] < daysConfronto[toDay]){
+                                if (rigaTesto ~ testoContenuto || checkText){
+                                    print FILENAME": "  $0 
+                                    next               
+                                }
+
+                            } if(daysConfronto[rigaDay] < daysConfronto[toDay]){
+                                if(toHour > rigaHour){
+                                if (rigaTesto ~ testoContenuto || checkText){
+                                    print FILENAME": "  $0 
+                                    next               
+                                }
+
+
+                                }
+                            }
+                            if(daysConfronto[rigaDay] == daysConfronto[toDay]){
+                                if(toHour > rigaHour){
+                                    if (rigaTesto ~ testoContenuto || checkText){
+                                        print FILENAME": "  $0 
+                                        next               
+                                    }
+
+
+                                }
+                            }
+                        }
+                        
+                    }
+
+                }
+
+
+                else if(toYear > rigaYear ){
+
+                    if (rigaTesto ~ testoContenuto || checkText){
+                                 print FILENAME": "  $0 
+                               next        
+                            }  
+
+
+                }
+                
             }
-            if((fromHour=="" || fromHour<= rigaHour) && (toHour == "" || toHour>= rigaHour)){
+
+        }else if(toYear == rigaYear && fromYear < rigaYear){
+
+
+            if ($0 ~ test){
+         #        print "Capooo"
+                }
+                
+            
+
+
+                if(monthsConfronto[rigaMonth] < monthsConfronto[toMonth]){   #controllo il mese del to
+                    if (rigaTesto ~ testoContenuto || checkText){
+                        
+                        print FILENAME": "  $0 
+                        next        
+                    }  
+
+                }else if(monthsConfronto[rigaMonth] == monthsConfronto[toMonth]){
+
+                    if(daysConfronto[rigaDay] < daysConfronto[toDay]){
+                        if (rigaTesto ~ testoContenuto || checkText){
+                            
+                            print FILENAME": "  $0 
+                            next    
+                        }
+
+                    }else if(daysConfronto[rigaDay] == daysConfronto[toDay]){
+
+                        if (toHour < rigaHour){
+                            next
+                        }
+                        else{
+
+                            if (rigaTesto ~ testoContenuto || checkText){
+                                
+                                print FILENAME": "  $0 
+                                next    
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            } else if(fromYear == rigaYear && rigaYear<toYear){
+
+
+                if(monthsConfronto[rigaMonth] > monthsConfronto[fromMonth]){
+
+                    if (rigaTesto ~ testoContenuto || checkText){
+                            
+                        print FILENAME": "  $0 
+                        next    
+                    }
+
+
+                }
+
+
+
+            }
+
+
+
+        if (((monthsConfronto[rigaMonth] > monthsConfronto[toMonth]) && toYear>rigaYear) || ((monthsConfronto[fromMonth] > monthsConfronto[rigaMonth]) && rigaYear>fromYear &&(checkTo || (rigaDay < toDay)))){
+                #MODIFICARE LA CONDIZIONE SOPRA
+                if (rigaTesto ~ testoContenuto || checkText){
+
+                    
+                   print FILENAME": "  $0 
+                    next  
+            }
+
+        }
+
+
+        
+    
+        
+
+        if((fromMonth == "" || monthsConfronto[fromMonth]<= monthsConfronto[rigaMonth]) && (toMonth ==""  || monthsConfronto[rigaMonth]<= monthsConfronto[toMonth])){
+           if ($0 ~ "VjL4GscHTcIPgXA6lthbkYWLVU4GCcOx6ASDZtUOUjDLiXMjUhQxVw3ieJLV994zuohNKo Z Tdm5ZshEXg5xPZZX4Y4CDT4Ax"){
+
+               # print "ciao"
+            }
+           
+           
+            if ((fromMonth == "" || monthsConfronto[fromMonth]< monthsConfronto[rigaMonth]) && (toMonth ==""  || monthsConfronto[rigaMonth]< monthsConfronto[toMonth])){
+                if (rigaTesto ~ testoContenuto || checkText){
+                    
+                   print FILENAME": "  $0 
+                    next               
+                }  
+            }
+            
+
+            if ((fromDay =="" || daysConfronto[fromDay] <= daysConfronto[rigaDay]) && (toDay == "" || daysConfronto[rigaDay] <= daysConfronto[toDay])){
+
+                if ($0 ~ "VjL4GscHTcIPgXA6lthbkYWLVU4GCcOx6ASDZtUOUjDLiXMjUhQxVw3ieJLV994zuohNKo Z Tdm5ZshEXg5xPZZX4Y4CDT4Ax"){
+
+              #  print "ciao"
+            }
+                if((fromDay =="" || daysConfronto[fromDay] < daysConfronto[rigaDay]) && (toDay == "" || daysConfronto[rigaDay] < daysConfronto[toDay])){
+
+                    if (rigaTesto ~ testoContenuto || checkText){
+                #       if ($0 ~ "KPYswmL1On5UjisrxA.IGGRLfrQIprI3NbsFYeJmm4"){print "ciaooo"}
+                
+                       print FILENAME": "  $0 
+                        next
+                    }
+                }
+                if((fromHour=="" || fromHour<= rigaHour) && (toHour == "" || toHour>= rigaHour)){
             #test del contenuto
                # print rigaTesto
-                if (rigaTesto ~ testoContenuto){
+                if (rigaTesto ~ testoContenuto || checkText){
+                #     if ($0 ~ "KPYswmL1On5UjisrxA.IGGRLfrQIprI3NbsFYeJmm4"){print "ciaooo"}
+      
+                
                     print FILENAME": "  $0 
+                    next
                     
                 }       
             }
+
+            }
+
+
+
+            if(((rigaDay < fromDay) && fromMonth < rigaMonth) || (rigaDay > toDay) && (toMonth> rigaMonth)    ){
+                if ($0 ~ "VjL4GscHTcIPgXA6lthbkYWLVU4GCcOx6ASDZtUOUjDLiXMjUhQxVw3ieJLV994zuohNKo Z Tdm5ZshEXg5xPZZX4Y4CDT4Ax"){
+
+              #      print "ciao"
+            }
+                
+            }
+      
         }
+
+
+        
     }
+    
+
+
 }
 
 
